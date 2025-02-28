@@ -4,18 +4,21 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-zzz
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 
 <h1 class="text-xl">Events</h1>
-z
-{#each data.events as event}
-	<div>
-		<h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
-		<p>{event.description}</p>
-		<p>{event.date}</p>
-	</div>
-{/each}
+
+{#await data.events}
+	<span class="loading loading-dots"></span>
+{:then events}
+	{#each events as event}
+		<div>
+			<h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
+			<p>{event.description}</p>
+			<p>{event.date}</p>
+		</div>
+	{/each}
+{/await}
 
 <a class="btn" href="/newevent" role="button">Add Event</a>
