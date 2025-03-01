@@ -1,4 +1,5 @@
 <script lang="ts">
+	import EventForm from '$lib/components/EventForm.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -8,12 +9,6 @@
 	{#await data.event}
 		<span class="loading loading-dots"></span>
 	{:then event}
-		{#if event}
-			<h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
-			<p>{event.description}</p>
-			<p>{event.date}</p>
-
-			<a class="btn" href="/{event.id}/edit" role="button">Edit Event</a>
-		{/if}
+		<EventForm defaultValues={event} />
 	{/await}
 </div>
