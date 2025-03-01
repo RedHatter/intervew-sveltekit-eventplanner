@@ -7,6 +7,10 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
+<svelte:head>
+	<title>Events</title>
+</svelte:head>
+
 <h1 class="text-3xl mb-6 text-center">Events</h1>
 
 {#await data.events}

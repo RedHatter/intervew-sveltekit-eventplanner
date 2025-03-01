@@ -10,6 +10,14 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
+<svelte:head>
+	{#await data.event}
+		<title>Loading...</title>
+	{:then event}
+		<title>{event?.title}</title>
+	{/await}
+</svelte:head>
+
 <div>
 	{#await data.event}
 		<EventViewLoader />
