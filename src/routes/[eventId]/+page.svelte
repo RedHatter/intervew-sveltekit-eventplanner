@@ -1,5 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { enhance } from '$app/forms';
+
+	let deleting = $state(false);
 
 	let { data }: { data: PageData } = $props();
 </script>
@@ -14,6 +17,26 @@
 			<p>{event.date}</p>
 
 			<a class="btn" href="/{event.id}/edit" role="button">Edit Event</a>
+
+			<form
+				method="POST"
+				use:enhance={() => {
+					deleting = true;
+
+					return async ({ update }) => {
+						await update();
+						deleting = false;
+					};
+				}}
+			>
+				<button disabled={deleting} type="submit">
+					Delete Event
+
+					{#if deleting}
+						<span class="loading loading-spinner loading-xs"></span>
+					{/if}
+				</button>
+			</form>
 		{/if}
 	{/await}
 </div>
