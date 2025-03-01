@@ -3,6 +3,7 @@
 	import { enhance } from '$app/forms';
 
 	import EventView from '$lib/components/EventView.svelte';
+	import EventViewLoader from '$lib/components/EventViewLoader.svelte';
 
 	let deleting = $state(false);
 
@@ -11,7 +12,9 @@
 
 <div>
 	{#await data.event}
-		<span class="loading loading-dots"></span>
+		<EventViewLoader />
+
+		<a class="btn" href="./">Back</a>
 	{:then event}
 		{#if event}
 			<EventView {event} />

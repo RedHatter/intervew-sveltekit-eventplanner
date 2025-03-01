@@ -7,7 +7,16 @@
 
 <div>
 	{#await data.event}
-		<span class="loading loading-dots"></span>
+		<div class="animate-pulse mb-5">
+			<div class="h-6 w-9 rounded-md bg-neutral-content mb-2"></div>
+			<div class="h-10 w-full rounded-md bg-neutral-content mb-5"></div>
+			<div class="h-6 w-22 rounded-md bg-neutral-content mb-2"></div>
+			<div class="h-20 w-full rounded-md bg-neutral-content mb-5"></div>
+			<div class="h-6 w-9 rounded-md bg-neutral-content mb-2"></div>
+			<div class="h-10 w-full rounded-md bg-neutral-content mb-5"></div>
+
+			<a class="btn" href="./">Back</a>
+		</div>
 	{:then event}
 		<EventForm defaultValues={event} />
 	{/await}
