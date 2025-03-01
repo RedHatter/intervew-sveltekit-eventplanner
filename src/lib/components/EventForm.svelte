@@ -2,6 +2,9 @@
 	import type { Event } from '$lib/server/remote-events';
 	import { enhance } from '$app/forms';
 
+	const iso = new Date().toISOString();
+	const min = iso.substring(0, iso.lastIndexOf(':'));
+
 	let disabled = $state(false);
 
 	let { defaultValues }: { defaultValues?: Partial<Event> } = $props();
@@ -40,6 +43,7 @@
 		id="date"
 		name="date"
 		required
+		{min}
 	/>
 
 	<button {disabled} type="submit">
