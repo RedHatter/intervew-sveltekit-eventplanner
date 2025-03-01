@@ -38,6 +38,8 @@
 						{/if}
 					</button>
 				</form>
+
+				<a class="btn" href="./">Back</a>
 			</div>
 		{/if}
 	{/await}

@@ -60,15 +60,19 @@
 		{min}
 	/>
 
-	<button class="btn btn-primary" {disabled} type="submit">
-		{#if defaultValues === undefined}
-			Create Event
-		{:else}
-			Update Event
-		{/if}
+	<div class="flex gap-2">
+		<button class="btn btn-primary" {disabled} type="submit">
+			{#if defaultValues === undefined}
+				Create Event
+			{:else}
+				Update Event
+			{/if}
 
-		{#if disabled}
-			<span class="loading loading-spinner loading-xs"></span>
-		{/if}
-	</button>
+			{#if disabled}
+				<span class="loading loading-spinner loading-xs"></span>
+			{/if}
+		</button>
+
+		<a class="btn" href="./">Back</a>
+	</div>
 </form>
