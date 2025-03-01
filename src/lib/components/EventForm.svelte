@@ -11,6 +11,7 @@
 </script>
 
 <form
+	class="flex flex-col items-start"
 	method="POST"
 	use:enhance={() => {
 		disabled = true;
@@ -21,22 +22,35 @@
 		};
 	}}
 >
-	<!-- form for creating new event -->
-	<label for="title">Title</label>
-	<input value={defaultValues?.title} {disabled} type="text" id="title" name="title" required />
+	<!-- form for creating or editing an event -->
 
+	<label class="font-medium mb-2" for="title">Title</label>
+	<input
+		class="input input-ghost w-full mb-5"
+		value={defaultValues?.title ?? ''}
+		{disabled}
+		type="text"
+		id="title"
+		name="title"
+		placeholder="Example title"
+		required
+	/>
+
+	<label class="font-medium mb-2" for="description">Description</label>
 	<textarea
+		class="textarea textarea-ghost w-full mb-5"
 		value={defaultValues?.description}
 		{disabled}
 		id="description"
 		name="description"
-		rows="4"
+		rows="3"
 		cols="50"
-		placeholder="Description"
+		placeholder="Example providing more descriptive details"
 	></textarea>
 
-	<label for="date">Date</label>
+	<label class="font-medium mb-2" for="date">Date</label>
 	<input
+		class="input input-ghost w-full mb-5"
 		value={defaultValues?.date}
 		{disabled}
 		type="datetime-local"
@@ -46,7 +60,7 @@
 		{min}
 	/>
 
-	<button {disabled} type="submit">
+	<button class="btn btn-primary" {disabled} type="submit">
 		{#if defaultValues === undefined}
 			Create Event
 		{:else}
