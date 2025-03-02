@@ -1,19 +1,35 @@
 <script lang="ts">
 	import type { Event } from '$lib/server/remote-events';
 	import { enhance } from '$app/forms';
+	import TextField from './TextField.svelte';
+	import { onMount } from 'svelte';
 
 	const iso = new Date().toISOString();
 	const min = iso.substring(0, iso.lastIndexOf(':'));
 
 	let disabled = $state(false);
 
+	// Only set "novalidate" on the form when javascript is enabled leaving the
+	// default browser validation functional for users with javascript disabled.
+	let novalidate = $state(false);
+
+	onMount(() => {
+		novalidate = true;
+	});
+
 	let { defaultValues }: { defaultValues?: Partial<Event> } = $props();
 </script>
 
 <form
 	class="flex flex-col items-start"
+	{novalidate}
 	method="POST"
-	use:enhance={() => {
+	use:enhance={({ formElement, cancel }) => {
+		if (!formElement.checkValidity()) {
+			cancel();
+			return;
+		}
+
 		disabled = true;
 
 		return async ({ update }) => {
@@ -24,37 +40,35 @@
 >
 	<!-- form for creating or editing an event -->
 
-	<label class="font-medium mb-2" for="title">Title</label>
-	<input
-		class="input input-ghost w-full mb-5"
-		value={defaultValues?.title ?? ''}
+	<TextField
+		label="Title"
+		value={defaultValues?.title}
 		{disabled}
 		type="text"
-		id="title"
 		name="title"
 		placeholder="Example title"
 		required
 	/>
 
-	<label class="font-medium mb-2" for="description">Description</label>
+	<label class="font-medium mb-2" for="description">
+		Description <span class="font-normal text-xs">(Optional)</span>
+	</label>
 	<textarea
-		class="textarea textarea-ghost w-full mb-5"
+		class="textarea w-full mb-5"
 		value={defaultValues?.description}
 		{disabled}
 		id="description"
 		name="description"
 		rows="3"
 		cols="50"
-		placeholder="Example providing more descriptive details"
+		placeholder="Full event description"
 	></textarea>
 
-	<label class="font-medium mb-2" for="date">Date</label>
-	<input
-		class="input input-ghost w-full mb-5"
+	<TextField
+		label="Date"
 		value={defaultValues?.date}
 		{disabled}
 		type="datetime-local"
-		id="date"
 		name="date"
 		required
 		{min}

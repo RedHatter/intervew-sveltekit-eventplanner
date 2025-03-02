@@ -16,12 +16,12 @@ export const actions: Actions = {
 		const eventId = parseInt(params.eventId);
 
 		const eventData = await parseEventRequest(request);
-		const newEvent = await updateEventById(eventId, eventData);
+		const updatedEvent = await updateEventById(eventId, eventData);
 
-		if (newEvent === null) {
-			error(404);
+		if (updatedEvent === null) {
+			error(404, `Event "${eventId}" not found`);
 		}
 
-		redirect(303, `/${newEvent.id}`);
+		redirect(303, `/${updatedEvent.id}`);
 	}
 };
