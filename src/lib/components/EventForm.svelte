@@ -2,6 +2,7 @@
 	import type { Event } from '$lib/server/remote-events';
 	import { enhance } from '$app/forms';
 	import TextField from './TextField.svelte';
+	import TextArea from './TextArea.svelte';
 	import { onMount } from 'svelte';
 
 	const iso = new Date().toISOString();
@@ -50,19 +51,13 @@
 		required
 	/>
 
-	<label class="font-medium mb-2" for="description">
-		Description <span class="font-normal text-xs">(Optional)</span>
-	</label>
-	<textarea
-		class="textarea w-full mb-5"
+	<TextArea
+		label="Description"
 		value={defaultValues?.description}
 		{disabled}
-		id="description"
 		name="description"
-		rows="3"
-		cols="50"
 		placeholder="Full event description"
-	></textarea>
+	/>
 
 	<TextField
 		label="Date"
